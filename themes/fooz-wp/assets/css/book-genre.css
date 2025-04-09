@@ -145,12 +145,14 @@
 .post-grid .thumbnail-link {
     display: block;
     width: 100%;
+    aspect-ratio: 18/30;
 }
 
 .post-grid .thumbnail-link img {
     width: 100%;
-    height: auto;
+    height: 100%;
     transition: opacity 0.2s ease;
+    object-fit: cover;
 }
 
 .post-grid .thumbnail-link:hover img {
