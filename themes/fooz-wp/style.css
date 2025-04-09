@@ -15,3 +15,19 @@ Text Domain: fooz-wp
 */
 
 /* Add your custom styles below this line */
+
+/* Recent Book Link Styles */
+.recent-book-link {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.recent-book-link:hover {
+    color: #cd2653; /* Twenty Twenty primary color */
+}
+
+.recent-book-title {
+    font-weight: 700;
+}
+

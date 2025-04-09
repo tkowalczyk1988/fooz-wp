@@ -14,6 +14,30 @@ require_once get_stylesheet_directory() . '/inc/post-types/books.php';
 require_once get_stylesheet_directory() . '/inc/taxonomies/book-genre.php';
 
 /**
+ * Shortcode for displaying the most recent book title with link
+ */
+function fooz_wp_recent_book_title_shortcode() {
+    $args = array(
+        'post_type'      => 'book',
+        'posts_per_page' => 1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    );
+
+    $recent_book = get_posts($args);
+
+    if (!empty($recent_book)) {
+        return sprintf(
+            '<a href="%s" class="recent-book-link"><span class="recent-book-title">%s</span></a>',
+            esc_url(get_permalink($recent_book[0]->ID)),
+            esc_html($recent_book[0]->post_title)
+        );
+    }
+
+    return esc_html__('No books found', 'fooz-wp');
+}
+add_shortcode('recent_book', 'fooz_wp_recent_book_title_shortcode');
+/**
  * Enqueue parent theme and child theme styles
  */
 function fooz_wp_enqueue_styles() {
