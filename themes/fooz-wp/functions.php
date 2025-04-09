@@ -28,3 +28,17 @@ function fooz_wp_enqueue_styles() {
     );
 }
 add_action( 'wp_enqueue_scripts', 'fooz_wp_enqueue_styles' );
+
+/**
+ * Enqueue custom scripts
+ */
+function fooz_wp_enqueue_scripts() {
+    wp_enqueue_script(
+        'fooz-wp-scripts',
+        get_stylesheet_directory_uri() . '/assets/js/scripts.js',
+        array('jquery'),
+        wp_get_theme()->get('Version'),
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'fooz_wp_enqueue_scripts' );
