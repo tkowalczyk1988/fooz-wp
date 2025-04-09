@@ -1,0 +1,261 @@
+/* Genre Archive Styles */
+.genre-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.genre-title {
+    text-align: center;
+    font-size: var(--wp--preset--font-size--xxx-large);
+    margin-bottom: var(--wp--preset--spacing--40);
+}
+
+.genre-description {
+    max-width: var(--wp--style--global--content-size);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--wp--preset--spacing--40);
+    text-align: center;
+    color: var(--wp--preset--color--contrast-2);
+}
+
+/* Books Grid */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--wp--preset--spacing--40);
+    margin: var(--wp--preset--spacing--40) 0;
+}
+
+/* Book Card */
+.book-card {
+    background: var(--wp--preset--color--base);
+    border-radius: var(--wp--preset--spacing--20);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+.book-card-image {
+    position: relative;
+    padding-top: 66.67%; /* 3:2 Aspect Ratio */
+    overflow: hidden;
+}
+
+.book-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-card-content {
+    padding: var(--wp--preset--spacing--40);
+}
+
+.book-card-title {
+    font-size: var(--wp--preset--font-size--large);
+    margin: 0 0 var(--wp--preset--spacing--20);
+}
+
+.book-card-title a {
+    color: var(--wp--preset--color--contrast);
+    text-decoration: none;
+}
+
+.book-card-title a:hover {
+    color: var(--wp--preset--color--primary);
+}
+
+.book-card-meta {
+    font-size: var(--wp--preset--font-size--small);
+    color: var(--wp--preset--color--contrast-2);
+}
+
+/* Pagination */
+.books-pagination {
+    margin: var(--wp--preset--spacing--60) 0;
+    text-align: center;
+}
+
+.books-pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 var(--wp--preset--spacing--20);
+    margin: 0 var(--wp--preset--spacing--10);
+    border-radius: var(--wp--preset--spacing--20);
+    background: var(--wp--preset--color--base);
+    color: var(--wp--preset--color--contrast);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.books-pagination .page-numbers.current {
+    background: var(--wp--preset--color--primary);
+    color: var(--wp--preset--color--base);
+}
+
+.books-pagination .page-numbers:hover:not(.current) {
+    background: var(--wp--preset--color--contrast-3);
+}
+
+.no-books {
+    text-align: center;
+    color: var(--wp--preset--color--contrast-2);
+    padding: var(--wp--preset--spacing--40);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .genre-title {
+        font-size: var(--wp--preset--font-size--xx-large);
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Book Genre Archive Styles */
+.post-grid {
+    margin: 4rem auto;
+    max-width: 100%;
+}
+
+.post-grid .post-inner {
+    padding: 0;
+}
+
+.post-grid .featured-media {
+    margin-top: 0;
+}
+
+.post-grid .featured-media-inner {
+    position: relative;
+}
+
+.post-grid .thumbnail-link {
+    display: block;
+    width: 100%;
+}
+
+.post-grid .thumbnail-link img {
+    width: 100%;
+    height: auto;
+    transition: opacity 0.2s ease;
+}
+
+.post-grid .thumbnail-link:hover img {
+    opacity: 0.85;
+}
+
+.post-grid .entry-header {
+    padding: 2rem;
+    text-align: center;
+}
+
+.post-grid .entry-title {
+    font-size: 2.4rem;
+    margin: 0 0 1rem;
+}
+
+.post-grid .entry-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.post-grid .entry-title a:hover {
+    text-decoration: underline;
+}
+
+.post-grid .post-meta-wrapper {
+    margin-top: 2rem;
+}
+
+.post-grid .post-meta {
+    color: #6d6d6d;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+/* Pagination */
+.pagination-wrapper {
+    margin-top: 5rem;
+}
+
+.pagination-separator {
+    margin: 5rem auto;
+}
+
+.nav-links ul {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: -0.8rem 0 0 -1.6rem;
+    width: calc(100% + 1.6rem);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links .current {
+    text-decoration: underline;
+}
+
+.nav-links a {
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* No Results */
+.no-results {
+    padding: 0;
+    text-align: center;
+}
+
+.no-results .post-inner {
+    padding-top: 0;
+}
+
+.no-results .entry-content {
+    font-size: 1.8rem;
+}
+
+@media (min-width: 700px) {
+    .posts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+        margin-top: 4rem;
+    }
+
+    .post-grid {
+        margin: 0;
+    }
+
+    .post-grid .entry-title {
+        font-size: 2.8rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .posts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

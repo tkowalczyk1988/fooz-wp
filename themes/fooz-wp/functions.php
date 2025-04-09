@@ -41,6 +41,15 @@ function fooz_wp_enqueue_styles() {
             wp_get_theme()->get('Version')
         );
     }
+
+    // Enqueue book genre archive styles
+    if (is_tax('book-genre')) {
+        wp_enqueue_style( 'fooz-wp-book-genre-style',
+            get_stylesheet_directory_uri() . '/assets/css/book-genre.css',
+            array( 'fooz-wp-style' ),
+            wp_get_theme()->get('Version')
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'fooz_wp_enqueue_styles' );
 

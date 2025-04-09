@@ -52,3 +52,15 @@ function fooz_wp_register_book_genre_taxonomy() {
     register_taxonomy( 'book-genre', array( 'book' ), $args );
 }
 add_action( 'init', 'fooz_wp_register_book_genre_taxonomy' );
+
+/**
+ * Modify main query for book genre taxonomy
+ */
+function fooz_wp_modify_book_genre_query($query) {
+    if (!is_admin() && $query->is_main_query() && is_tax('book-genre')) {
+        $query->set('posts_per_page', 5);
+        $query->set('orderby', 'date');
+        $query->set('order', 'DESC');
+    }
+}
+add_action('pre_get_posts', 'fooz_wp_modify_book_genre_query');
