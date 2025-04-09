@@ -1,0 +1,85 @@
+/* Single Book Styles */
+.book-single {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.book-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.book-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.book-meta {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.book-date {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.book-genres {
+    margin-top: 1rem;
+}
+
+.book-genres-label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.book-genre-link {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    margin: 0.25rem;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.book-genre-link:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.book-cover {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-cover-image {
+    max-width: 300px;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.book-content {
+    line-height: 1.6;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .book-title {
+        font-size: 2rem;
+    }
+
+    .book-cover-image {
+        max-width: 100%;
+    }
+}
