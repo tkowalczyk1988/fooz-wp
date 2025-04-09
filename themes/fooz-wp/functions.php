@@ -17,7 +17,7 @@ require_once get_stylesheet_directory() . '/inc/taxonomies/book-genre.php';
  * Enqueue parent theme and child theme styles
  */
 function fooz_wp_enqueue_styles() {
-    $parent_style = 'twentytwentyfive-style';
+    $parent_style = 'twentytwenty-style';
 
     // Enqueue parent theme's style.css
     wp_enqueue_style( $parent_style,
