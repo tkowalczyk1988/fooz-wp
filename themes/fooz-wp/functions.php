@@ -8,9 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Include custom post types
+ * Include custom post types and taxonomies
  */
 require_once get_stylesheet_directory() . '/inc/post-types/books.php';
+require_once get_stylesheet_directory() . '/inc/taxonomies/book-genre.php';
 
 /**
  * Enqueue parent theme and child theme styles
