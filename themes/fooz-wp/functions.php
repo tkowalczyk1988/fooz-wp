@@ -8,6 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Include custom post types
+ */
+require_once get_stylesheet_directory() . '/inc/post-types/books.php';
+
+/**
  * Enqueue parent theme and child theme styles
  */
 function fooz_wp_enqueue_styles() {
