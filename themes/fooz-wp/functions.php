@@ -19,7 +19,7 @@ require_once get_stylesheet_directory() . '/inc/taxonomies/book-genre.php';
 function fooz_wp_recent_book_title_shortcode() {
     $args = array(
         'post_type'      => 'book',
-        'posts_per_page' => 1,
+        'posts_per_page' => 5,
         'orderby'        => 'date',
         'order'          => 'DESC',
     );
@@ -109,6 +109,25 @@ function fooz_wp_genre_books_shortcode($atts) {
 add_shortcode('genre_books', 'fooz_wp_genre_books_shortcode');
 
 /**
+ * Shortcode for loading books with AJAX
+ */
+function fooz_wp_load_books_shortcode() {
+    // Ensure scripts are enqueued
+    wp_enqueue_script('fooz-wp-scripts');
+
+    $output = sprintf(
+        '<div class="fooz-books-loader">
+        <div class="fooz-books-container"></div>
+        <button type="button" class="fooz-load-books-btn">%s</button>
+        </div>',
+        esc_html__('Load books', 'fooz-wp')
+    );
+
+    return $output;
+}
+add_shortcode('load_books', 'fooz_wp_load_books_shortcode');
+
+/**
  * Enqueue parent theme and child theme styles
  */
 function fooz_wp_enqueue_styles() {
@@ -149,6 +168,72 @@ function fooz_wp_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'fooz_wp_enqueue_styles' );
 
 /**
+ * AJAX callback for getting books
+ */
+function fooz_wp_get_books_callback() {
+    // Verify nonce for security
+    if (!isset($_REQUEST['nonce']) || !wp_verify_nonce($_REQUEST['nonce'], 'fooz_wp_get_books_nonce')) {
+        wp_send_json_error('Invalid nonce');
+    }
+
+    // Get page number from request
+    $page = isset($_REQUEST['page']) ? max(1, intval($_REQUEST['page'])) : 1;
+    $posts_per_page = 20;
+
+    // Get total number of books
+    $total_books = wp_count_posts('book')->publish;
+
+    $args = array(
+        'post_type'      => 'book',
+        'posts_per_page' => $posts_per_page,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'offset'         => ($page - 1) * $posts_per_page,
+    );
+
+    $books = get_posts($args);
+    $response = array();
+
+    foreach ($books as $book) {
+        // Get genres with links
+        $genres = array();
+        $terms = wp_get_post_terms($book->ID, 'book-genre');
+        foreach ($terms as $term) {
+            $genres[] = array(
+                'name' => $term->name,
+                'url'  => get_term_link($term)
+            );
+        }
+
+        // Format date
+        $date = get_the_date('Y-m-d', $book->ID);
+
+        // Get excerpt and limit to 55 characters
+        $excerpt = has_excerpt($book->ID)
+            ? wp_strip_all_tags(get_the_excerpt($book->ID))
+            : wp_strip_all_tags($book->post_content);
+        $excerpt = substr($excerpt, 0, 55) . (strlen($excerpt) > 55 ? '...' : '');
+
+        $response[] = array(
+            'name'    => $book->post_title,
+            'date'    => $date,
+            'genre'   => $genres,
+            'excerpt' => $excerpt,
+            'url'     => get_permalink($book->ID)
+        );
+    }
+
+    wp_send_json_success(array(
+        'books' => $response,
+        'page' => $page,
+        'total' => $total_books,
+        'hasMore' => ($page * $posts_per_page) < $total_books
+    ));
+}
+add_action('wp_ajax_get_books', 'fooz_wp_get_books_callback');
+add_action('wp_ajax_nopriv_get_books', 'fooz_wp_get_books_callback');
+
+/**
  * Enqueue custom scripts
  */
 function fooz_wp_enqueue_scripts() {
@@ -158,6 +243,21 @@ function fooz_wp_enqueue_scripts() {
         array('jquery'),
         wp_get_theme()->get('Version'),
         true
+    );
+
+    // Add AJAX URL and nonce to script
+    wp_localize_script(
+        'fooz-wp-scripts',
+        'foozWP',
+        array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('fooz_wp_get_books_nonce'),
+            'i18n'    => array(
+                'loadBooks' => esc_html__('Load books', 'fooz-wp'),
+                'loading'   => esc_html__('Loading...', 'fooz-wp'),
+                'error'     => esc_html__('Error loading books', 'fooz-wp')
+            )
+        )
     );
 }
 add_action( 'wp_enqueue_scripts', 'fooz_wp_enqueue_scripts' );

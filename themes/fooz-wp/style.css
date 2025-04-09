@@ -33,16 +33,17 @@ Text Domain: fooz-wp
 
 /* Genre Books List Styles */
 .genre-books-list {
+    list-style: none;
     margin: 2rem 0;
     padding: 2rem;
     background: #f5f5f5;
     border-radius: 4px;
 }
 
-.genre-books-title {
-    margin: 0 0 1.5rem;
+.genre-books-list h3.genre-books-title {
     font-size: 2rem;
     color: #000;
+    margin: 0 0.75rem 1.5rem;
 }
 
 .genre-books-list ul {
@@ -76,4 +77,91 @@ Text Domain: fooz-wp
     color: #666;
     font-style: italic;
     text-align: center;
+}
+
+/* Book Loader Styles */
+.fooz-books-loader {
+    margin: 2rem 0;
+}
+
+.fooz-load-books-btn {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #cd2653;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.fooz-load-books-btn:hover {
+    background-color: #b21e48;
+    text-decoration: none;
+}
+
+.fooz-load-books-btn:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+.fooz-load-books-btn.error {
+    background-color: #dc3232;
+}
+
+/* Books List Styles */
+.fooz-books-container {
+    margin-top: 2rem;
+}
+
+.genre-book-item {
+    margin: 0.75rem 0;
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.genre-book-item:hover {
+    background: #f0f0f0;
+}
+
+.book-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.book-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.book-content h3.genre-book-title {
+    margin: 0;
+    line-height: 1.2;
+    font-size: 2rem;
+    color: #000;
+    margin: 0 0.75rem 1.5rem;
+}
+
+.book-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.5rem;
+    color: #666;
+}
+
+.book-date {
+    font-style: italic;
+}
+
+.book-excerpt {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #444;
 }
