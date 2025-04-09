@@ -31,3 +31,49 @@ Text Domain: fooz-wp
     font-weight: 700;
 }
 
+/* Genre Books List Styles */
+.genre-books-list {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+.genre-books-title {
+    margin: 0 0 1.5rem;
+    font-size: 2rem;
+    color: #000;
+}
+
+.genre-books-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.genre-book-item {
+    margin: 0.75rem 0;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.genre-book-item:last-child {
+    border-bottom: none;
+}
+
+.genre-book-link {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.2s ease;
+}
+
+.genre-book-link:hover {
+    color: #cd2653; /* Twenty Twenty primary color */
+}
+
+.no-books-message {
+    padding: 1rem;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}

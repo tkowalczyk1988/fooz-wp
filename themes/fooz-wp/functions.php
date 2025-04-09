@@ -37,6 +37,77 @@ function fooz_wp_recent_book_title_shortcode() {
     return esc_html__('No books found', 'fooz-wp');
 }
 add_shortcode('recent_book', 'fooz_wp_recent_book_title_shortcode');
+
+/**
+ * Shortcode for displaying books from specific genre
+ * Usage: [genre_books genre_id="123"]
+ */
+function fooz_wp_genre_books_shortcode($atts) {
+    // Parse attributes
+    $atts = shortcode_atts(
+        array(
+            'genre_id' => 0,
+        ),
+        $atts,
+        'genre_books'
+    );
+
+    // Validate genre_id
+    $genre_id = intval($atts['genre_id']);
+    if ($genre_id <= 0) {
+        return esc_html__('Please provide a valid genre ID', 'fooz-wp');
+    }
+
+    // Check if term exists
+    $term = get_term($genre_id, 'book-genre');
+    if (is_wp_error($term) || !$term) {
+        return esc_html__('Genre not found', 'fooz-wp');
+    }
+
+    // Query arguments
+    $args = array(
+        'post_type'      => 'book',
+        'posts_per_page' => 5,
+        'orderby'        => 'title',
+        'order'          => 'ASC',
+        'tax_query'      => array(
+            array(
+                'taxonomy' => 'book-genre',
+                'field'    => 'term_id',
+                'terms'    => $genre_id,
+            ),
+        ),
+    );
+
+    $books = get_posts($args);
+
+    if (empty($books)) {
+        return sprintf(
+            '<p class="no-books-message">%s</p>',
+            esc_html__('No books found in this genre', 'fooz-wp')
+        );
+    }
+
+    $output = sprintf(
+        '<div class="genre-books-list"><h3 class="genre-books-title">%s: %s</h3><ul>',
+        esc_html__('Books in genre', 'fooz-wp'),
+        esc_html($term->name)
+    );
+
+    foreach ($books as $book) {
+        $output .= sprintf(
+            '<li class="genre-book-item"><a href="%s" class="genre-book-link">%s</a></li>',
+            esc_url(get_permalink($book->ID)),
+            esc_html($book->post_title)
+        );
+    }
+
+    $output .= '</ul></div>';
+
+    return $output;
+}
+add_shortcode('genre_books', 'fooz_wp_genre_books_shortcode');
+
 /**
  * Enqueue parent theme and child theme styles
  */
